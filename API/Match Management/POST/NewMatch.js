@@ -1,34 +1,30 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const { openConnection, closeConnection } = require('../../../DBManager/Connection');
+const { OpenConnection, CloseConnection } = require('C:/Users/mersa/Desktop/Back_end/SportsApplication/DBManager/Connection.js');
+const logger = require('../../../log');
 
+const router = express.Router();
 
-const app = express();
-const port = 3000;
+router.post('/NewMatch', async (req, res) => {
 
-app.use(bodyParser.json());
+  const {end_time,match_id,result,score,start_time,status,team_a,team_b,tournament_id,venue} = req.body;
 
-app.post('/match/post', async (req, res) => {
-  const {
-    end_time,
-    match_id,
-    result,
-    score, 
-    start_time,
-    status,
-    team_a,
-    team_b,
-    tournament_id,
-    venue
-  } = req.body;
+  // Define an array of required parameters
+  const requiredParams = ['end_time', 'match_id', 'result', 'score', 'start_time', 'status', 'team_a', 'team_b', 'tournament_id', 'venue'];
+
+  // Check if any required parameter is missing in req.body
+  const missingParams = requiredParams.filter(param => !(param in req.body));
+
+  if (missingParams.length > 0) {
+    // Throw an error indicating missing parameters
+    const missingParamsList = missingParams.join(', ');
+    const errorMessage = `Missing ${missingParams.length} required parameter(s): ${missingParamsList}`;
+    logger.error(errorMessage);
+    return res.status(400).json({ error: errorMessage });
+  }
 
   const { 'Team A': teamAScore, 'Team B': teamBScore } = score;  // Nested destructuring with renaming
 
-  if (!match_id) {
-    return res.status(400).json({ error: 'match_id is required' });
-  }
-
-  const db = openConnection();
+  const db = OpenConnection();
 
   try {
     await db.collection('matches').doc(match_id.toString()).set({
@@ -44,14 +40,12 @@ app.post('/match/post', async (req, res) => {
       venue
     });
     res.status(200).json({ message: 'Match details stored successfully' });
-  } catch (error) {
-    console.error('Error storing match details:', error);
+  } catch (err) {
+    logger.error(err)
     res.status(500).json({ error: 'Failed to store match details' });
   } finally {
-    closeConnection();
+    CloseConnection();
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = router;
