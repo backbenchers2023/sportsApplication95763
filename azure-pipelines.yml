@@ -1,0 +1,18 @@
+trigger:
+  branches:
+    include:
+      - backbenchers2024_backend_main  # Replace with your branch name
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    command: 'buildAndPush'
+    repository: 'backbenchers2023'  # Replace with your Docker Hub repository name
+    dockerfile: 'Dockerfile'  # Relative path from the workspace root to your Dockerfile
+    containerRegistry: 'docker-hub-connection'  # Use the service connection created earlier
+    tags: |
+      latest  # Specify your desired tags here
