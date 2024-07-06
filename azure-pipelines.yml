@@ -11,8 +11,8 @@ steps:
   displayName: 'Build and Push Docker Image'
   inputs:
     command: 'buildAndPush'
-    repository: 'backbenchers2023'  # Replace with your Docker Hub repository name
-    dockerfile: 'Dockerfile'  # Relative path from the workspace root to your Dockerfile
-    containerRegistry: 'docker-hub-connection'  # Use the service connection created earlier
+    repository: 'backbenchers2023'  
+    dockerfile: 'Dockerfile'  
+    containerRegistry: 'docker-hub-connection'  
     tags: |
-      latest  # Specify your desired tags here
+      $(SERVICE):latest
