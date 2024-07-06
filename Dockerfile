@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to run your API server
-CMD ["node", "index.js"]
+CMD ["npm start"]
