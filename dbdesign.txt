@@ -1,0 +1,96 @@
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phonenumber NUMERIC(10) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Teams (
+    team_id SERIAL PRIMARY KEY,
+    logo BYTEA,  -- BLOB is BYTEA in PostgreSQL
+    team_name VARCHAR(100) NOT NULL,
+    sport VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Players (
+    player_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    team_id INT NOT NULL,
+    position VARCHAR(50),
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE Ground (
+     ground_id SERIAL PRIMARY KEY,
+     ground_name VARCHAR(50),
+     location VARCHAR(100)
+);
+
+CREATE TABLE Create_Tournament (
+    tournament_id SERIAL PRIMARY KEY,
+    logo BYTEA,  -- BLOB is BYTEA in PostgreSQL
+    city VARCHAR(100),
+    ground_id INT,
+    creator_id INT NOT NULL,
+    tournament_name VARCHAR(100) NOT NULL,
+    phone_number NUMERIC(10),
+    entry_fee NUMERIC(10, 2),
+    poster BYTEA,  -- BLOB is BYTEA in PostgreSQL
+    category VARCHAR(50),
+    match_type VARCHAR(50),
+    ground_type VARCHAR(50),
+    address VARCHAR(300),
+    start_date DATE,
+    end_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (creator_id) REFERENCES Users(user_id),
+    FOREIGN KEY (ground_id) REFERENCES Ground(ground_id)
+);
+
+CREATE TABLE Matches (
+    match_id SERIAL PRIMARY KEY,
+    tournament_id INT NOT NULL,
+    team_a INT NOT NULL,
+    team_b INT NOT NULL,
+    score JSONB DEFAULT '{"team_a": 0, "team_b": 0}',
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    result VARCHAR(50),
+    status VARCHAR(50),
+    venue VARCHAR(100),
+    FOREIGN KEY (tournament_id) REFERENCES Tournaments(tournament_id),
+    FOREIGN KEY (team_a) REFERENCES Teams(team_id),
+    FOREIGN KEY (team_b) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE Instant_Matches (
+    instant_match_id SERIAL PRIMARY KEY,
+    team_a INT NOT NULL,
+    team_b INT NOT NULL,
+    score JSONB DEFAULT '{"team_a": 0, "team_b": 0}',
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    result VARCHAR(50),
+    status VARCHAR(50),
+    venue VARCHAR(100),
+    referee VARCHAR(50),
+    FOREIGN KEY (team_a) REFERENCES Teams(team_id),
+    FOREIGN KEY (team_b) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE Events (
+    event_id SERIAL PRIMARY KEY,  
+    match_id INT NOT NULL,
+    time TIMESTAMP NOT NULL,
+    event VARCHAR(50) NOT NULL,
+    player_id INT NOT NULL,
+    team_id INT NOT NULL, 
+    description TEXT,  
+    FOREIGN KEY (match_id) REFERENCES Matches(match_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id), 
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id)  
+);
+
