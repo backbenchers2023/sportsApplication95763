@@ -14,4 +14,4 @@ steps:
     repository: 'backbenchers2023'  
     dockerfile: 'Dockerfile'  
     containerRegistry: 'docker-hub-connection'  
-    tags: '$(SERVICE):latest'
+    tags: 'backend:latest'
