@@ -6,11 +6,18 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  dockerHubUsername: 'backbenchers2023'  # Replace with your Docker Hub username
+  imageName: '$(dockerHubUsername)/backbenchers2023'  # Adjust if your repository name is different
+
 steps:
 - task: Docker@2
   displayName: 'Build and Push Docker Image'
   inputs:
     command: 'buildAndPush'
-    repository: 'backbenchers2023'  
-    dockerfile: 'Dockerfile'  
-    containerRegistry: 'docker-hub-connection'  
+    containerRegistry: 'docker-hub-connection'  # Make sure this matches your service connection name
+    repository: '$(imageName)'
+    dockerfile: '**/Dockerfile'  # Adjust the path if your Dockerfile is not in the root
+    tags: |
+      $(Build.BuildId)
+      latest
