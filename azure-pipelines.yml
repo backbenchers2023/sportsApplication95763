@@ -1,34 +1,22 @@
 trigger:
-  batch: true
+  branches:
+    include:
+      - backbenchers2024_backend_main  
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
+
+variables:
+  dockerHubUsername: 'backbenchers2023'  
+  imageName: '$(dockerHubUsername)/backbenchers2023' 
 
 steps:
-  - task: UseFlutter@1
-    inputs:
-      version: 'latest'
-
-  - script: |
-      flutter pub get
-      flutter build apk
-    displayName: 'Install dependencies and build Flutter app'
-
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: 'SonarCloud'
-      organization: 'default-organization'
-      scannerMode: 'CLI'
-      projectKey: 'my-flutter-app'
-      projectName: 'My Flutter App'
-      extraProperties: |
-        sonar.sources=lib
-        sonar.exclusions=**/**/test/**
-
-  - script: |
-      sonar-scanner
-    displayName: 'Run SonarCloud analysis'
-
-  - task: SonarCloudPublish@1
-    inputs:
-      pollingTimeoutSec: '300'
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    command: 'buildAndPush'
+    repository: '$(imageName)'
+    dockerfile: '**/Dockerfile'  
+    tags: |
+      $(Build.BuildId)
+      latest
