@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - backbenchers2024_backend_main  
+      - backbenchers2024_frontend_main
 
 pool:
   vmImage: 'ubuntu-latest'
