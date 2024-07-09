@@ -4,14 +4,17 @@ FROM cirrusci/flutter:latest
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the pubspec and pubspec.lock files to the container
-COPY live_sr/pubspec.yaml live_sr/pubspec.lock ./
+# Copy the pubspec.yaml file to the container
+COPY pubspec.yaml ./
+
+# Copy the pubspec.lock file to the container if it exists
+COPY pubspec.lock ./
 
 # Get the dependencies
 RUN flutter pub get
 
 # Copy the rest of the application code to the container
-COPY live_sr/ ./
+COPY . .
 
 # Build the Flutter web application
 RUN flutter build web
