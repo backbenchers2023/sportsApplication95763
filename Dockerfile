@@ -1,5 +1,5 @@
 # Base image for Flutter
-FROM cirrusci/flutter:latest
+FROM cirrusci/flutter:3.3.4
 
 # Set the working directory inside the container
 WORKDIR /app
