@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'team_details_dialog.dart';
+import 'package:live_sr/team_details_dialog.dart';
 
 class StartMatchPage extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _StartMatchPageState extends State<StartMatchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Start Match'),
+        title: const Text('Start Match'),
         backgroundColor: Colors.blue,
       ),
       body: Center(
@@ -34,7 +34,7 @@ class _StartMatchPageState extends State<StartMatchPage> {
                     }
                   },
                 ),
-                SizedBox(width: 50),
+                const SizedBox(width: 50),
                 TeamCircle(
                   onTap: () async {
                     final details = await _showTeamDialog(context, 'Team 2');
@@ -47,14 +47,14 @@ class _StartMatchPageState extends State<StartMatchPage> {
                 ),
               ],
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
                 // Handle start match logic here
                 print('Team 1 Details: $team1Details');
                 print('Team 2 Details: $team2Details');
               },
-              child: Text('Start Match'),
+              child: const Text('Start Match'),
             ),
           ],
         ),
@@ -91,7 +91,7 @@ class TeamCircle extends StatelessWidget {
           shape: BoxShape.circle,
           border: Border.all(color: Colors.black, width: 2),
         ),
-        child: Center(
+        child: const Center(
           child: Icon(Icons.add),
         ),
       ),

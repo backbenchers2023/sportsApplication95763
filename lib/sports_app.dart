@@ -4,7 +4,7 @@ import 'start_match.dart'; // Import your Start Match page
 // import 'looking_for.dart'; // Import your Looking For page
 // import 'leaderboard.dart'; // Import your Leaderboard page
 // import 'news.dart'; // Import your News page
-// import 'tournament.dart'; // Import your Tournament page
+import 'pages/tournament/ui/tournament.dart'; // Import your Tournament page
 
 // Entry point of the application
 void main() => runApp(const MyApp());
@@ -107,12 +107,12 @@ class _SportsAppState extends State<SportsApp> {
             // _createDrawerItem(
             //     icon: Icons.article,
             //     text: 'News',
-            //     onTap: () => _navigateTo(context, NewsPage())),
-            // _createDrawerItem(
-            //     icon: Icons.emoji_events,
-            //     text: 'Tournament',
-            //     onTap: () =>
-            //         _navigateTo(context, TournamentPage())), // Updated icon
+            // onTap: () => _navigateTo(context, NewsPage())),
+            _createDrawerItem(
+                icon: Icons.emoji_events,
+                text: 'Tournament',
+                onTap: () =>
+                    _navigateTo(context, TournamentForm())), // Updated icon
             _createDrawerItem(
                 icon: Icons.logout,
                 text: 'LogOut',
