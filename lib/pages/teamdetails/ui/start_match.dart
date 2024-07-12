@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:live_sr/team_details_dialog.dart';
+import 'package:live_sr/pages/teamdetails/ui/team_details_dialog.dart';
 
 class StartMatchPage extends StatefulWidget {
   @override
