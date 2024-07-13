@@ -5,7 +5,7 @@ trigger:
 
 pool:
   vmImage: 'DESKTOP-7PD6F2B'
-
+  
 variables:
   dockerHubUsername: 'backbenchers2023'  # Replace with your Docker Hub username
   imageName: '$(dockerHubUsername)/backbenchers2023'  # Adjust if your repository name is different
