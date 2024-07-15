@@ -4,8 +4,8 @@ trigger:
       - backbenchers2024_backend_main  # Replace with your branch name
 
 pool:
-  vmImage: 'ubuntu-latest'
-
+  name: 'Default'
+  
 variables:
   dockerHubUsername: 'backbenchers2023'  # Replace with your Docker Hub username
   imageName: '$(dockerHubUsername)/backbenchers2023'  # Adjust if your repository name is different
