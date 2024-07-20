@@ -1,5 +1,5 @@
 const Socket = require('ws');
-const commentry = require('./WebSocket/Commentry_msg');
+const commentry = require('./Commentry_msg');
 const logger = require('../../../log');
 
 function startWebSocket(server) {
