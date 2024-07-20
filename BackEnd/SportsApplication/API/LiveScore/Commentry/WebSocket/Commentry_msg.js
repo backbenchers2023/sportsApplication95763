@@ -258,9 +258,8 @@ const freeKickResponses = [
     "Free kick! A chance to score from here."
 ];
 
-
 const responses={
-    'goal':goalResponses,
+    'goal':[...goalResponses,...addgoal()],
     'foul' : foulResponses,
     'corner': cornerResponses,
     'offside': offsideResponses,
