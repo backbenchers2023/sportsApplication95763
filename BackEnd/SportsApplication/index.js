@@ -11,13 +11,13 @@ app.use(bodyParser.json());
 
 //Roting 
 app.use('/match', matchRoutes);
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
     console.log(`Server is running on port ${port}`);
 })
 
 //Websocket
 const server = http.createServer(app);
-server.listen(3050, () => {
+server.listen(3050,'0.0.0.0',() => {
     console.log(`Server is running on port 3050`);
     startWebSocket(server); // Start WebSocket on the same server
 });
