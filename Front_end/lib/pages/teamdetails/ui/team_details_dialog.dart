@@ -16,7 +16,7 @@ class _TeamDetailsDialogState extends State<TeamDetailsDialog> {
   final _formKey = GlobalKey<FormState>();
   String _teamName = '';
   int _numPlayers = 5;
-  PickedFile? _teamLogo;
+  XFile? _teamLogo;
   final List<TextEditingController> _playerControllers = [];
 
   final ImagePicker _picker = ImagePicker();
@@ -55,7 +55,7 @@ class _TeamDetailsDialogState extends State<TeamDetailsDialog> {
               GestureDetector(
                 onTap: () async {
                   final pickedFile =
-                      await _picker.getImage(source: ImageSource.gallery);
+                      await _picker.pickImage(source: ImageSource.gallery);
                   setState(() {
                     _teamLogo = pickedFile;
                   });

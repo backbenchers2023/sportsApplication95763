@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:live_sr/sports_app.dart';
 
+import 'helpers/app_data.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,8 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Tournament App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: URBANIST_FONT_FAMILY,
       ),
-      home: SportsApp(
+      home: const SportsApp(
         title: 'Sports',
       ),
     );

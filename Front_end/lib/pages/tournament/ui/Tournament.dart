@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:live_sr/pages/tournament/model/tournament_modal.dart';
 import 'package:live_sr/pages/tournament/ui/DateWidget.dart';
-import 'package:live_sr/pages/tournament/ui/FormFieldWidget.dart';
 import 'package:live_sr/pages/tournament/ui/ImagePickerRow.dart';
-import 'dart:io';
-import 'tournament.dart'; // Assuming this is the file where the Tournament model is defined
+import '../../../Reusable Widget/custom_textfield.dart';
 
 class TournamentForm extends StatefulWidget {
   @override
@@ -97,14 +95,12 @@ class _TournamentFormState extends State<TournamentForm> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              ImagePickerRow(
-                  buttonText: "Upload Logo",
-                  image: _logo,
-                  pickImage: _pickLogo),
+              const Text("Upload Logo"),
+              const ImagePickerRow(),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: tournamentNameController,
-                labelText: "Tournament Name*",
+                hint: "Tournament Name*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the tournament name';
@@ -113,9 +109,9 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: cityController,
-                labelText: "City*",
+                hint: "City*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the city';
@@ -124,9 +120,9 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: groundController,
-                labelText: "Ground*",
+                hint: "Ground*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the ground';
@@ -135,9 +131,9 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: organizerNameController,
-                labelText: "Organizer Name*",
+                hint: "Organizer Name*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the organizer name';
@@ -146,9 +142,9 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: phoneNumberController,
-                labelText: "Phone Number*",
+                hint: "Phone Number*",
                 keyboardType: TextInputType.phone,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -161,9 +157,9 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: entryFeesController,
-                labelText: "Entry Fees*",
+                hint: "Entry Fees*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the entry fees';
@@ -181,12 +177,12 @@ class _TournamentFormState extends State<TournamentForm> {
               DatePickerWidget(
                   controller: endDateController, labelText: "End Date*"),
               const SizedBox(height: 20),
-              FormFieldWidget(
-                  controller: category1Controller, labelText: "Category "),
+              CustomTextForm(
+                  controller: category1Controller, hint: "Category "),
               const SizedBox(height: 20),
-              FormFieldWidget(
+              CustomTextForm(
                 controller: matchTypeController,
-                labelText: "Match Type*",
+                hint: "Match Type*",
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter the match type';
@@ -212,10 +208,8 @@ class _TournamentFormState extends State<TournamentForm> {
                 },
               ),
               const SizedBox(height: 20),
-              ImagePickerRow(
-                  buttonText: "Upload Poster",
-                  image: _poster,
-                  pickImage: _pickPoster),
+              const Text("Upload Poster"),
+              ImagePickerRow(),
               const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(

@@ -1,4 +1,3 @@
 part of 'tourmanent_bloc.dart';
 
-@immutable
-sealed class TourmanentEvent {}
+abstract class TourmanentEvent {}

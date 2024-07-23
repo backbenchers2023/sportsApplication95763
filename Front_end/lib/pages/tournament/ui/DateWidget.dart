@@ -9,29 +9,28 @@ class DatePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormFieldWidget(
-      controller: controller,
-      labelText: labelText,
-      hintText: "MM/DD/YYYY",
-      readOnly: true,
-      onTap: () async {
-        DateTime? pickedDate = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2101),
-        );
-        if (pickedDate != null) {
-          controller.text =
-              "${pickedDate.month}/${pickedDate.day}/${pickedDate.year}";
-        }
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please select a date';
-        }
-        return null;
-      },
+    return SizedBox(
+      height: 40, // Adjust height as needed
+      child: TextFormField(
+        controller: controller,
+        readOnly: true,
+        decoration: InputDecoration(
+          labelText: labelText,
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(horizontal: 12),
+        ),
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2101),
+          );
+          if (pickedDate != null) {
+            controller.text = "${pickedDate.toLocal()}".split(' ')[0];
+          }
+        },
+      ),
     );
   }
 }

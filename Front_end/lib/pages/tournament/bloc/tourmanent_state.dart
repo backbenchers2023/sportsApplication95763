@@ -1,6 +1,5 @@
 part of 'tourmanent_bloc.dart';
 
-@immutable
-sealed class TourmanentState {}
+abstract class TourmanentState {}
 
-final class TourmanentInitial extends TourmanentState {}
+class TourmanentInitial extends TourmanentState {}
