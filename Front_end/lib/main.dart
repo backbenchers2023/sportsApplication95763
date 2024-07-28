@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:live_sr/sports_app.dart';
-
+import 'pages/Score_Card/Ui_Design/livescore.dart';
 import 'helpers/app_data.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SportsApps());
 }
 
 class MyApp extends StatelessWidget {

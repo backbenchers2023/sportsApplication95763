@@ -6,9 +6,6 @@ import 'pages/teamdetails/ui/start_match.dart'; // Import your Start Match page
 // import 'news.dart'; // Import your News page
 import 'pages/tournament/ui/tournament.dart'; // Import your Tournament page
 
-// Entry point of the application
-void main() => runApp(const MyApp());
-
 // Main widget of the application
 class MyApp extends StatelessWidget {
   final appTitle = 'SportsApp';
@@ -43,7 +40,7 @@ class _SportsAppState extends State<SportsApp> {
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Home'),
     Text('Football'),
-    Text('Hockey'),
+    Text('Kabbadi'),
     Text('Volleyball'),
   ];
 
@@ -139,7 +136,7 @@ class _SportsAppState extends State<SportsApp> {
               label: 'Football',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.sports_hockey),
+              icon: Icon(Icons.sports_kabaddi),
               label: 'Hockey',
             ),
             BottomNavigationBarItem(
@@ -175,3 +172,4 @@ class _SportsAppState extends State<SportsApp> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 }
+    
