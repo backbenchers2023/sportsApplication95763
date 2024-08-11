@@ -3,19 +3,16 @@ const { OpenConnection, CloseConnection } = require('../../../DBManager/Connecti
 const Modules = require('../../../Modules/Common.js')
 const logger = require('../../../log');
 
-const router = express.Router();
 
-router.post('/NewMatch', async (req, res) => {
+const addMatchDetails = (req, res) => {
 
   try {
-    const {team, user_id, venue, match_status, match_type, start_time, duration ,tournament_id = null } = req.body;
+    const { team, user_id, venue, match_status, match_type, start_time, duration, tournament_id = null } = req.body;
 
     const match_id = Modules.generateUniqueId()
     const timestamp = Modules.generatetimestamp()
-    team[0].teamid=Modules.generateUniqueId()
-    team[1].teamid=Modules.generateUniqueId()
-    team[0].finalscore="0"
-    team[1].finalscore="0"
+    team[0].finalscore = "0"
+    team[1].finalscore = "0"
     // Define an array of required parameters
     const requiredParams = ['user_id', 'venue', 'match_status', 'match_type', 'start_time', 'duration'];
 
@@ -30,13 +27,12 @@ router.post('/NewMatch', async (req, res) => {
       return res.status(400).json({ error: errorMessage });
     }
 
-
-    const db = OpenConnection();
+    const { db } = OpenConnection()
     try {
-      await db.collection('matches').doc("Match" + match_id.toString()).set({
-        match_id,team, user_id,venue,match_status,match_type,start_time,duration,tournament_id,timestamp
+      db.collection('matches').doc("Match" + match_id.toString()).set({
+        match_id, team, user_id, venue, match_status, match_type, start_time, duration, tournament_id, timestamp
       });
-      res.status(200).json({ message: 'Match details stored successfully' , Id : match_id});
+      res.status(200).json({ message: 'Match details stored successfully', Id: match_id });
     } catch (err) {
       logger.error(err)
       res.status(500).json({ error: 'Failed to store match details' });
@@ -48,6 +44,6 @@ router.post('/NewMatch', async (req, res) => {
     logger.error(err)
     res.status(500).json({ error: 'Failed to store match details see the log file for more details' });
   }
-});
+};
 
-module.exports = router;
+module.exports = addMatchDetails;

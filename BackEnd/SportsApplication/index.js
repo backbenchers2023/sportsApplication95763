@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const matchRoutes = require('./API/Match Management/POST/NewMatch');
 const startWebSocket = require('./API/LiveScore/Commentry/Commentry');
 const http = require('http');
+const router = require('./Router/Router');
 
 const app = express();
 const port = 3000;
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routing
-app.use('/match', matchRoutes);
+app.use('/App', router);
 
 // Create HTTP server
 const server = http.createServer(app);
