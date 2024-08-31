@@ -35,7 +35,7 @@ const Assets = async (req, res) => {
       });
 
       const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 10);  // 10 Days after from the uploaded date
+      expirationDate.setDate(expirationDate.getDate() + 15);  // 10 Days after from the uploaded date
       
       // Get the download URL
       const [url] = await fileUpload.getSignedUrl({
