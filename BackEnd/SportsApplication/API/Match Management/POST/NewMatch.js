@@ -12,7 +12,10 @@ const addMatchDetails = (req, res) => {
     const match_id = Modules.generateUniqueId()
     const timestamp = Modules.generatetimestamp()
     team[0].finalscore = "0"
+    team[0].teamid = Modules.generateUniqueId()
     team[1].finalscore = "0"
+    team[1].teamid = Modules.generateUniqueId()
+
     // Define an array of required parameters
     const requiredParams = ['user_id', 'venue', 'match_status', 'match_type', 'start_time', 'duration'];
 
@@ -29,10 +32,10 @@ const addMatchDetails = (req, res) => {
 
     const { db } = OpenConnection()
     try {
-      db.collection('matches').doc("Match" + match_id.toString()).set({
+      db.collection('matches').doc(match_id.toString()).set({
         match_id, team, user_id, venue, match_status, match_type, start_time, duration, tournament_id, timestamp
       });
-      res.status(200).json({ message: 'Match details stored successfully', Id: match_id });
+      res.status(200).json({ message: 'Match details stored successfully', Id: match_id , teamA: team[0].teamid , teamB:team[1].teamid  });
     } catch (err) {
       logger.error(err)
       res.status(500).json({ error: 'Failed to store match details' });
