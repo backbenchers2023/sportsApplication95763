@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const matchRoutes = require('../API/Match Management/POST/NewMatch');
-const SaveScore=require('../API/LiveScore/UpdateScore/UpdateScore')
+const SaveScore = require('../API/LiveScore/UpdateScore/UpdateScore')
 const Picupload = require('../API/AssetsAPI/AssetsAPI');
+const GetMatch = require('../API/FetchMatch/FetchMatch');
 const multer = require('multer');
 const logger = require('../log')
 
@@ -13,6 +14,7 @@ try {
     router.post('/match', matchRoutes);
     router.post('/uploadPic', upload.array('Logo', 2), Picupload);
     router.post('/SaveScore', SaveScore);
+    router.get("/GetMatch", GetMatch);
 } catch (error) {
     logger.error(error);
 }
