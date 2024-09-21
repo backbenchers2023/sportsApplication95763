@@ -1,7 +1,7 @@
 const { OpenConnection, CloseConnection } = require("../../DBManager/Connection");
 const logger = require('../../log');
 
-const Getmatch = async (req, res) => {
+const GetUsermatch = async (req, res) => {
 
     let connection;
     try {
@@ -28,8 +28,8 @@ const Getmatch = async (req, res) => {
         const matches = result.docs.map(doc => {
             const data = doc.data();
             return {
-                matchid: data.matchid,
-                match_status: data.match_status,
+                matchid: data.match_id,
+                match_status:data.match_status,
                 match_type: data.match_type,
                 start_time: data.start_time,
                 team: data.team,
@@ -51,4 +51,4 @@ const Getmatch = async (req, res) => {
     }
 }
 
-module.exports = Getmatch;
+module.exports = GetUsermatch;
