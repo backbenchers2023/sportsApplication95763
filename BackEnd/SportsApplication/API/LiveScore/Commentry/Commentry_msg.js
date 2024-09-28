@@ -235,28 +235,23 @@ const missResponses = [
 ];
 
 const freeKickResponses = [
-    "What a save by the goalkeeper [TEAM]'s defense stands strong.",
-    "Incredible save [TEAM] shows great defensive skills.",
-    "The goalkeeper comes up big [TEAM]'s defense is impressive.",
-    "Brilliant save by the keeper [TEAM] stands firm.",
-    "Amazing reflexes [TEAM] keeps the opposition at bay.",
-    "The keeper denies the goal [TEAM] shows resilience.",
-    "Unbelievable save by the goalkeeper [TEAM] remains solid.",
-    "Fantastic stop [TEAM]'s defense holds strong.",
-    "The goalkeeper stands tall [TEAM] keeps the score level.",
-    "Superb save by the keeper [TEAM] stays in the game.",
-    "The keeper pulls off a stunning save [TEAM] stays strong.",
-    "What a stop [TEAM] remains unbroken.",
-    "The goalkeeper parries the shot [TEAM] holds their ground.",
-    "A heroic save by the keeper [TEAM] stays in control.",
-    "The keeper makes a crucial save [TEAM] is unyielding.",
-    "Outstanding save [TEAM] shows their defensive mettle.",
-    "The goalkeeper saves the day [TEAM] is resilient.",
-    "A miraculous save by the keeper [TEAM] stands tall.",
-    "The keeper with a world-class save [TEAM] remains steadfast.",
-    "What a save [TEAM] shows their defensive prowess.",
-    "Free kick A chance to score from here."
+    "He stands over the ball, sizing up the wall.",
+    "A tense moment as he prepares for the free kick.",
+    "He takes a deep breath, ready to strike.",
+    "The wall is set, and he’s eyeing his target.",
+    "He’s lining up, focused on the task ahead.",
+    "All eyes on him as he steps up for the free kick.",
+    "He’s got a chance here, and the pressure is on.",
+    "He takes a moment to steady himself before the shot.",
+    "He surveys his options, ready to make his move.",
+    "A quiet hush as he prepares to take the kick.",
+    "He’s ready to go, positioning himself carefully.",
+    "The crowd waits in anticipation as he lines it up.",
+    "He steps up, calculating his next move.",
+    "The tension builds as he eyes the goal.",
+    "He’s got a real opportunity here, and he knows it."
 ];
+
 
 
 const responses={
