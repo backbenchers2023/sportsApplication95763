@@ -1,5 +1,5 @@
-const { OpenConnection, CloseConnection } = require("../../DBManager/Connection");
-const logger = require('../../log');
+const { OpenConnection, CloseConnection } = require("../../../DBManager/Connection");
+const logger = require('../../../log');
 
 const GetUsermatch = async (req, res) => {
 

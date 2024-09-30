@@ -1,7 +1,7 @@
 const express = require('express');
 const { OpenConnection, CloseConnection } = require('../../../DBManager/Connection.js');
 const Modules = require('../../../Modules/Common.js')
-const logger = require('../../../log');
+const logger = require('../../../log.js');
 
 
 const addMatchDetails = (req, res) => {

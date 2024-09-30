@@ -1,5 +1,5 @@
 const path = require('path');
-const { OpenConnection } = require('../../DBManager/Connection');
+const { OpenConnection, CloseConnection } = require('../../DBManager/Connection');
 const { bucket } = OpenConnection()
 const logger = require('../../log')
 const Modules = require('../../Modules/Common')
@@ -35,7 +35,7 @@ const Assets = async (req, res) => {
       });
 
       const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 15);  // 10 Days after from the uploaded date
+      expirationDate.setDate(expirationDate.getDate() + 15);  // 15 Days after from the uploaded date
       
       // Get the download URL
       const [url] = await fileUpload.getSignedUrl({
@@ -55,6 +55,8 @@ const Assets = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(500).send('Error uploading profile picture.');
+  }finally{
+    CloseConnection()
   }
 };
 
