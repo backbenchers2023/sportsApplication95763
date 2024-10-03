@@ -4,8 +4,6 @@ const logger = require("../../../log")
 const Getmatch = async (req, res) => {
     try {
         const status = req.query.status; // Get the status from the query parameters
-        logger.error("Status:", status);
-        console.log(status)
 
         if (!status) {
             logger.error("Status:", status);
