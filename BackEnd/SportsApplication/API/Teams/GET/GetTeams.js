@@ -16,8 +16,8 @@ const GetTeams = async (req, res) => {
 
         const teams =  await db.collection('teams').where("tournament_id", "==", tournamentid).get();   
 
-        console.log(teams);                           
-        console.log("Teams query result:", teams.docs.map(doc => doc.data()));
+        logger.message(teams);                           
+         logger.message("Teams query result:", teams.docs.map(doc => doc.data()));
 
         const result = teams.docs.map(doc => {
             const data = doc.data();

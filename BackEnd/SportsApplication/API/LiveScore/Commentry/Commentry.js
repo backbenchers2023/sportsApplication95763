@@ -7,7 +7,7 @@ function startWebSocket(server) {
 
     wss.on('connection', (ws) => {
         try {
-            console.log('Client connected');
+             logger.message('Client connected');
 
             ws.on('message', (message) => {
                 try {
@@ -38,14 +38,14 @@ function startWebSocket(server) {
             });
 
             ws.on('close', () => {
-                console.log('Client disconnected');
+                 logger.message('Client disconnected');
             });
         } catch (err) {
             logger.error(err);
         }
     });
 
-    console.log('WebSocket server is running on ws://localhost:3000/commentry/websocket');
+     logger.message('WebSocket server is running on ws://localhost:3000/commentry/websocket');
 }
 
 module.exports = startWebSocket;

@@ -19,7 +19,7 @@ const filestore = async (req, res) => {
             const imageid = Modules.generateUniqueId();  // Generate a unique ID for each image
             const filePath = path.join(foldername, `${imageid}.jpg`).replace(/\\/g, '/');  // Path for the file
             
-            console.log('Uploading to path:', filePath);
+             logger.message('Uploading to path:', filePath);
 
             const fileUpload = bucket.file(filePath);
 
@@ -43,7 +43,7 @@ const filestore = async (req, res) => {
                 "url": url
             });
 
-            console.log(`File ${imageid} uploaded and URL generated successfully.`);
+             logger.message(`File ${imageid} uploaded and URL generated successfully.`);
         }
 
         // Return the array of URLs to the client

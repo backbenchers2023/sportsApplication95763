@@ -6,7 +6,7 @@ const GetUsermatch = async (req, res) => {
     let connection;
     try {
         const userid = req.query.userid; // Get the userid from the query parameters
-        console.log("UserID:", userid);
+         logger.message("UserID:", userid);
 
         if (!userid) {
             logger.error("The userid is empty");
@@ -37,7 +37,7 @@ const GetUsermatch = async (req, res) => {
             };
         });
 
-        console.log("Matches found:", matches);
+         logger.message("Matches found:", matches);
 
         return res.status(200).json(matches);
 

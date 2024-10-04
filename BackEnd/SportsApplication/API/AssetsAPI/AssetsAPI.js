@@ -25,7 +25,7 @@ const Assets = async (req, res) => {
       const TeamId = Modules.generateUniqueId()
 
       const filePath = path.join('Logo', `${TeamId}.jpg`).replace(/\\/g, '/');
-      console.log('Uploading to path:', filePath);
+       logger.message('Uploading to path:', filePath);
 
       const fileUpload = bucket.file(filePath);
 
@@ -48,7 +48,7 @@ const Assets = async (req, res) => {
         "url": url
       }; // Storing both ID and URL for each file
 
-      console.log(`${TeamId} uploaded and URL generated successfully.`);
+       logger.message(`${TeamId} uploaded and URL generated successfully.`);
     }
 
     return res.status(200).json({ url: urls });

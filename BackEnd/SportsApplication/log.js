@@ -2,12 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const logFilePath = path.join(__dirname, 'errors.log');
-
+const errlogFilePath = path.join(__dirname, 'errors.log');
+const logfile = path.join(__dirname,'logger.log');
 // Check if the log file exists
-if (!fs.existsSync(logFilePath)) {
+if (!fs.existsSync(errlogFilePath)) {
     // If file does not exist, create it and write initial content
-    fs.writeFileSync(logFilePath, '// Error log file\n');
+    fs.writeFileSync(errlogFilePath, '// Error log file\n');
+}
+
+if (!fs.existsSync(logfile)) {
+    // If file does not exist, create it and write initial content
+    fs.writeFileSync(logfile, '// Logger log file\n');
 }
 
 // Function to log an error
@@ -17,7 +22,16 @@ function error(err) {
     const logMessage = `${timestamp} [${os.hostname()}] ${errorMessage}\n`;
 
     // Append error to the log file
-    fs.appendFileSync(logFilePath, logMessage, 'utf8');
+    fs.appendFileSync(errlogFilePath, logMessage, 'utf8');
 }
 
-module.exports = { error };
+// Function to log an error
+function message(err) {
+    const timestamp = new Date().toISOString();
+    const logMessage = `${timestamp} [${os.hostname()}] ${err}\n`;
+
+    // Append error to the log file
+    fs.appendFileSync(logfile, logMessage, 'utf8');
+}
+
+module.exports = { error , message };

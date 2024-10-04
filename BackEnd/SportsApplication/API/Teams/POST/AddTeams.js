@@ -7,8 +7,8 @@ const Addteams = async (req, res) => {
 
     let connection;
     let tournamentid = tournament_id;
-    console.log("Tournament ID:", tournamentid);
-    console.log("Teams to add:", totteams);
+     logger.message("Tournament ID:", tournamentid);
+     logger.message("Teams to add:", totteams);
 
     try {
         connection = await OpenConnection();
@@ -43,7 +43,7 @@ const Addteams = async (req, res) => {
  
          await batch.commit();
  
-         console.log(`Teams added: ${JSON.stringify(teamsToAdd)}`);
+          logger.message(`Teams added: ${JSON.stringify(teamsToAdd)}`);
          return res.status(200).json({ message: "Teams added successfully", addedTeams: teamsToAdd });
  
      } catch (error) {
