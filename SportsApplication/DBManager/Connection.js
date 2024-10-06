@@ -23,7 +23,6 @@ function OpenConnection() {
       console.log(serviceAccount);
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        credential: admin.credential.cert(serviceAccount),
         databaseURL: "https://sportsapplication2024-d4ee5.firebaseio.com",
         storageBucket: 'sportsapplication2024-d4ee5.appspot.com'
       });
