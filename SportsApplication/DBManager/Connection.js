@@ -11,7 +11,7 @@ function OpenConnection() {
         type: process.env.type,
         project_id: process.env.project_id,
         private_key_id: process.env.private_key_id,
-        private_key: process.env.private_key.replace(/\\n/g, "\n"), // Replace escaped newlines with actual newlines
+        //private_key: process.env.private_key.replace(/\\n/g, "\n"), // Replace escaped newlines with actual newlines
         client_x509_cert_url: process.env.client_x509_cert_url,
         client_email: process.env.client_email,
         client_id: process.env.client_id,
