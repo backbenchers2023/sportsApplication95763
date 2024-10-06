@@ -7,7 +7,7 @@ const router = require('./Router/Router');
 const logger = require('./log')
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; 
 
 // Use CORS middleware
 app.use(cors());
@@ -23,9 +23,9 @@ const server = http.createServer(app);
 try {
 
     // WebSocket
-    server.listen(3050, '0.0.0.0', () => {
-        console.log("Server is running on port 3050");
-        logger.message("Server is running on port 3050");
+    server.listen(port, '0.0.0.0', () => {
+        console.log(`Server is running on port ${port}`);
+        logger.message(`Websocket Server is running on port ${port}`);
         startWebSocket(server); // Start WebSocket on the same server
     });
 
