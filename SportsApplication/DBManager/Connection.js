@@ -7,8 +7,10 @@ function OpenConnection() {
   try {
     if (!admin.apps.length) { // Check if Firebase app is already initialized
       // Initialize Firebase Admin SDK
+      const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
       admin.initializeApp({
-        credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS),
+        credential: admin.credential.cert(serviceAccount),
         databaseURL: "https://sportsapplication2024-d4ee5.firebaseio.com",
         storageBucket: 'sportsapplication2024-d4ee5.appspot.com'
       });
