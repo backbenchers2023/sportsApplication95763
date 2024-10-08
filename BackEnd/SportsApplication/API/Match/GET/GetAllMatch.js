@@ -3,17 +3,11 @@ const logger = require("../../../log")
 
 const Getmatch = async (req, res) => {
     try {
-        const status = req.query.status; // Get the status from the query parameters
-
-        if (!status) {
-            logger.error("Status:", status);
-            return res.status(400).json({ error: "The Status is empty" });
-        }
-
+        
         connection = await OpenConnection();
 
         const { db } = connection;
-        const result = await db.collection("matches").where("match_status", "==", status).where("tournament_id", "==", null).get();
+        const result = await db.collection("matches").where("tournament_id", "==", null).get();
 
         // Check if any matches were found
         if (result.empty) {
