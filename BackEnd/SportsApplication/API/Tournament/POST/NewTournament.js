@@ -21,9 +21,10 @@ const addNewTounament = (req, res) => {
             matchtype,
             pitchtype,
             poster,
+            userid
         } = req.body;
 
-        const req_params = ['logo', 'tournament_name', 'city', 'groundname', 'organizername', 'phonenumber', 'entryfee', 'lastentry', 'startdate', 'enddate', 'matchtype', 'pitchtype', 'poster']
+        const req_params = ['userid','logo', 'tournament_name', 'city', 'groundname', 'organizername', 'phonenumber', 'entryfee', 'lastentry', 'startdate', 'enddate', 'matchtype', 'pitchtype', 'poster']
 
         const missingParams = req_params.filter(params => !(params in req.body));
         const tournament_id = Modules.generateUniqueId();
@@ -41,7 +42,7 @@ const addNewTounament = (req, res) => {
             tournament_id,
             teams :[]
         }).then(()=>{
-            logger.error("Team Added Successfully")
+            logger.message("Team Added Successfully")
         })
         
         try {
@@ -61,7 +62,9 @@ const addNewTounament = (req, res) => {
                 matchtype,
                 pitchtype,
                 poster,
-                Teams: TeamId
+                status:'completed',
+                Teams: TeamId,
+                userid:userid
             });
             res.status(200).json({ message: "Tournament Created Successfully", id: tournament_id })
         }

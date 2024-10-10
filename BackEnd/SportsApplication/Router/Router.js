@@ -3,14 +3,17 @@ const router = express.Router();
 const matchRoutes = require('../API/Match/POST/NewMatch');
 const SaveScore = require('../API/LiveScore/UpdateScore/UpdateScore')
 const Picupload = require('../API/AssetsAPI/AssetsAPI');
-const GetUsermatch = require('../API/Match/GET/FetchUserMatch');
+const GetUsermatch = require('../API/Match/GET/GetUsermatch');
 const GetMatch = require('../API/Match/GET/GetAllMatch')
+const GetTourMatches = require('../API/Match/GET/GetTourMatches')
 const filestore = require('../API/AssetsAPI/Filestore')
 const teams = require('../API/Teams/GET/GetTeams')
 const Addteams = require('../API/Teams/POST/AddTeams')
 const multer = require('multer');
 const logger = require('../log')
 const addNewTounament = require('../API/Tournament/POST/NewTournament')
+const ShowTournaments = require('../API/Tournament/GET/ShowTournament')
+const updateTournament = require('../API/Tournament/PATCH/updateTournament')
 const login = require('../API/login/Login')
 const signup = require('../API/SignUp/SignUp')
 const upload = multer({ storage: multer.memoryStorage() });
@@ -30,6 +33,10 @@ try {
     router.get("/GetUsermatch", GetUsermatch);
     router.get('/Getmatch', GetMatch);
     router.get('/GetTeams', teams);
+    router.get('/ShowTournaments', ShowTournaments);
+    router.get('/GetTourMatches', GetTourMatches);
+    //Patch
+    router.patch('/updateTournament',updateTournament)
 } catch (error) {
     logger.error(error);
 }
