@@ -9,7 +9,7 @@ function OpenConnection() {
     if (!admin.apps.length) { // Check if Firebase app is already initialized
       // Initialize Firebase Admin SDK
       admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+        credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS),
         databaseURL: "https://sportsapplication2024-d4ee5.firebaseio.com",
         storageBucket: 'sportsapplication2024-d4ee5.appspot.com'
       });
@@ -17,7 +17,7 @@ function OpenConnection() {
       db = admin.firestore();  // Initialize Firestore
       bucket = admin.storage().bucket();  // Initialize Storage Bucket
 
-       logger.message("Connection Established successfully");
+      logger.message("Connection Established successfully");
     }
     return { db, bucket }; // Return both db and bucket
   } catch (err) {
@@ -29,7 +29,7 @@ function OpenConnection() {
 function CloseConnection() {
   if (admin.apps.length) { // Check if there are initialized Firebase apps
     admin.app().delete().then(() => { // Delete the Firebase app instance
-       logger.message('Connection to Firebase closed.');
+      logger.message('Connection to Firebase closed.');
     }).catch((error) => {
       logger.error(error); // Log any errors during deletion
       console.error('Error closing Firebase connection:', error);
