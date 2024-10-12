@@ -2,7 +2,7 @@ const logger = require("../log");
 const render = require('../Render/sample');
 const express = require('express');
 
-const apiUrl = 'http://localhost:3000/App/sample'; // You can keep this for reference or logs
+const apiUrl = 'https://sportsapplication95763.onrender.com/App/sample'; // You can keep this for reference or logs
 
 function isDisabledHours() {
     const now = new Date();

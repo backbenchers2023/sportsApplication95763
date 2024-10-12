@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+      - backbenchers2024_backend_main  # Replace with your branch name
+
+pool:
+  name: 'Default'
+  
+variables:
+  dockerHubUsername: 'backbenchers2023'  # Replace with your Docker Hub username
+  imageName: '$(dockerHubUsername)/backbenchers2023'  # Adjust if your repository name is different
+
+steps:
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    command: 'buildAndPush'
+    containerRegistry: 'docker-hub-connection'  # Make sure this matches your service connection name
+    repository: '$(imageName)'
+    dockerfile: '**/Dockerfile'  # Adjust the path if your Dockerfile is not in the root
+    tags: |
+      $(Build.BuildId)
+      latest
