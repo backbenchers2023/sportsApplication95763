@@ -37,7 +37,7 @@ const addNewTounament = (req, res) => {
 
         const { db } = OpenConnection();
 
-        db.collection('teams').doc(TeamId.toString()).set({
+        db.collection('teams').doc(tournament_id.toString()).set({
             TeamId,
             tournament_id,
             teams :[]

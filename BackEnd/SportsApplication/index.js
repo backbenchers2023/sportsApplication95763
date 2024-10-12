@@ -5,7 +5,7 @@ const startWebSocket = require('./API/LiveScore/Commentry/Commentry');
 const http = require('http');
 const router = require('./Router/Router');
 const logger = require('./log')
-
+const triggerApi = require("./Render/Automate").default;  // Changed here
 const app = express();
 const port = 3000;
 
@@ -34,6 +34,7 @@ try {
         logger.message(`Server is running on port ${port}`);
         console.log(`Server is running on port ${port}`);
     });
+    triggerApi();
 } catch (error) {
     logger.error(error)
 }

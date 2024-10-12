@@ -16,6 +16,7 @@ const ShowTournaments = require('../API/Tournament/GET/ShowTournament')
 const updateTournament = require('../API/Tournament/PATCH/updateTournament')
 const login = require('../API/login/Login')
 const signup = require('../API/SignUp/SignUp')
+const render = require('../Render/sample')
 const upload = multer({ storage: multer.memoryStorage() });
 
 //Route 
@@ -36,7 +37,10 @@ try {
     router.get('/ShowTournaments', ShowTournaments);
     router.get('/GetTourMatches', GetTourMatches);
     //Patch
-    router.patch('/updateTournament',updateTournament)
+    router.patch('/updateTournament',updateTournament);
+
+    // For Activate the server
+    router.get('/sample',render);
 } catch (error) {
     logger.error(error);
 }
