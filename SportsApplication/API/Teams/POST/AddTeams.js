@@ -7,8 +7,12 @@ const Addteams = async (req, res) => {
 
     let connection;
     let tournamentid = tournament_id;
-     logger.message("Tournament ID:", tournamentid);
-     logger.message("Teams to add:", totteams);
+    if (!tournamentid || !totteams) {
+        return res.status(400).json({ message: "Missing tournamentid or teams in request body" });
+    }
+
+    logger.message("Tournament ID:", tournamentid);
+    logger.message("Teams to add:", totteams);
 
     try {
         connection = await OpenConnection();
@@ -31,29 +35,29 @@ const Addteams = async (req, res) => {
         });
         const teamsToAdd = totteams.filter(team => !exsistingTeams.includes(team));
 
-    
-         // Update each document with the new teams
-         const batch = db.batch();
-         tournamentDoc.forEach((doc) => {
-             const docRef = db.collection('teams').doc(doc.id);
-             batch.update(docRef, {
-                 'teams': admin.firestore.FieldValue.arrayUnion(...teamsToAdd), // Spread the teams array for batch update
-             });
-         });
- 
-         await batch.commit();
- 
-          logger.message(`Teams added: ${JSON.stringify(teamsToAdd)}`);
-         return res.status(200).json({ message: "Teams added successfully", addedTeams: teamsToAdd });
- 
-     } catch (error) {
-         logger.error('Error in Addteams:', error);
-         return res.status(500).json({ message: "An error occurred while adding teams", error: error.message });
-     } finally {
-         if (connection) {
-             CloseConnection(connection);
-         }
-     }
- };
- 
- module.exports = Addteams;
+
+        // Update each document with the new teams
+        const batch = db.batch();
+        tournamentDoc.forEach((doc) => {
+            const docRef = db.collection('teams').doc(doc.id);
+            batch.update(docRef, {
+                'teams': admin.firestore.FieldValue.arrayUnion(...teamsToAdd), // Spread the teams array for batch update
+            });
+        });
+
+        await batch.commit();
+
+        logger.message(`Teams added: ${JSON.stringify(teamsToAdd)}`);
+        return res.status(200).json({ message: "Teams added successfully", addedTeams: teamsToAdd });
+
+    } catch (error) {
+        logger.error('Error in Addteams:', error);
+        return res.status(500).json({ message: "An error occurred while adding teams", error: error.message });
+    } finally {
+        if (connection) {
+            CloseConnection(connection);
+        }
+    }
+};
+
+module.exports = Addteams;

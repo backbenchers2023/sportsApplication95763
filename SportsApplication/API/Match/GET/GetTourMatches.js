@@ -1,13 +1,13 @@
 const { OpenConnection, CloseConnection } = require("../../../DBManager/Connection")
 const logger = require("../../../log")
 
-const Getmatch = async (req, res) => {
+const GetTourMatches = async (req, res) => {
     try {
-        
+        const TournamentId = req.query.TournamentId;
         connection = await OpenConnection();
 
         const { db } = connection;
-        const result = await db.collection("matches").where("tournament_id", "==", null).get();
+        const result = await db.collection("matches").where("tournament_id", "==", TournamentId).get();
 
         // Check if any matches were found
         if (result.empty) {
@@ -40,4 +40,4 @@ const Getmatch = async (req, res) => {
     }
 }
 
-module.exports = Getmatch;
+module.exports = GetTourMatches;
