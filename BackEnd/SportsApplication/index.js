@@ -23,7 +23,7 @@ const server = http.createServer(app);
 try {
 
     // WebSocket
-    server.listen(port, () => {
+    server.listen(port, '0.0.0.0', () => {
         logger.message(`Server is running on port ${port}`);
         console.log(`Server is running on port ${port}`);
         startWebSocket(server); // Start WebSocket on the same server
