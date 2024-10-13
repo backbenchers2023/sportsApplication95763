@@ -4,22 +4,23 @@ const logger = require('../log');
 function OpenConnection() {
   try {
     // Parse the service account from the environment variable
-    const input = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    const input = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     
     // Create the serviceAccount object using properties from input
     const serviceAccount = {
-      type: input.type,
-      project_id: input.project_id,
-      private_key_id: input.private_key_id,
-      private_key: input.private_key,
-      client_email: input.client_email,
-      client_id: input.client_id,
-      auth_uri: input.auth_uri,
-      token_uri: input.token_uri,
-      auth_provider_x509_cert_url: input.auth_provider_x509_cert_url,
-      client_x509_cert_url: input.client_x509_cert_url,
-      universe_domain: input.universe_domain,
+      type: 'service_account',
+      project_id: process.env.project_id,
+      private_key_id: process.env.private_key_id,
+      private_key: process.env.private_key.replace(/\\n/g, '\n'), // Replace escaped newline with actual newline
+      client_email: process.env.client_email,
+      client_id: process.env.client_id,
+      auth_uri: process.env.auth_uri,
+      token_uri: process.env.token_uri,
+      auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
+      client_x509_cert_url: process.env.client_x509_cert_url,
+      universe_domain: process.env.universe_domain, // Add a default if needed
     };
+
 
     if (!admin.apps.length) { // Check if Firebase app is already initialized
       // Initialize Firebase Admin SDK
