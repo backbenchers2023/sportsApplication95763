@@ -1,12 +1,26 @@
 const admin = require('firebase-admin');
 const logger = require('../log');
-const fs = require('fs'); 
-let db;
-let bucket;
 
 function OpenConnection() {
   try {
-    const serviceAccount = JSON.parse(fs.readFileSync('/etc/secrets/serviceAccountKey.json', 'utf8'));
+    // Parse the service account from the environment variable
+    const input = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    
+    // Create the serviceAccount object using properties from input
+    const serviceAccount = {
+      type: input.type,
+      project_id: input.project_id,
+      private_key_id: input.private_key_id,
+      private_key: input.private_key,
+      client_email: input.client_email,
+      client_id: input.client_id,
+      auth_uri: input.auth_uri,
+      token_uri: input.token_uri,
+      auth_provider_x509_cert_url: input.auth_provider_x509_cert_url,
+      client_x509_cert_url: input.client_x509_cert_url,
+      universe_domain: input.universe_domain,
+    };
+
     if (!admin.apps.length) { // Check if Firebase app is already initialized
       // Initialize Firebase Admin SDK
       admin.initializeApp({
@@ -15,12 +29,10 @@ function OpenConnection() {
         storageBucket: 'sportsapplication2024-d4ee5.appspot.com'
       });
 
-      db = admin.firestore();  // Initialize Firestore
-      bucket = admin.storage().bucket();  // Initialize Storage Bucket
-
       logger.message("Connection Established successfully");
     }
-    return { db, bucket }; // Return both db and bucket
+    
+    return { db: admin.firestore(), bucket: admin.storage().bucket() }; // Return db and bucket
   } catch (err) {
     logger.error(err);
     throw err; // Re-throw the error for further handling
