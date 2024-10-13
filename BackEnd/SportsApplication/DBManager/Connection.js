@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const logger = require('../log');
+const fs = require('fs'); 
 let db;
 let bucket;
 
