@@ -5,7 +5,7 @@ let bucket;
 
 function OpenConnection() {
   try {
-    const serviceAccount = require('/etc/secrets/serviceAccountKey.json');
+    const serviceAccount = JSON.parse(fs.readFileSync('/etc/secrets/serviceAccountKey.json', 'utf8'));
     if (!admin.apps.length) { // Check if Firebase app is already initialized
       // Initialize Firebase Admin SDK
       admin.initializeApp({
