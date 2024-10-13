@@ -7,7 +7,7 @@ const router = require('./Router/Router');
 const logger = require('./log')
 const triggerApi = require("./Render/Automate").default;  // Changed here
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;  // Allow dynamic port assignment
 
 // Use CORS middleware
 app.use(cors());
@@ -23,17 +23,12 @@ const server = http.createServer(app);
 try {
 
     // WebSocket
-    server.listen(port, '0.0.0.0', () => {
+    server.listen(port, () => {
         logger.message(`Server is running on port ${port}`);
         console.log(`Server is running on port ${port}`);
         startWebSocket(server); // Start WebSocket on the same server
     });
 
-    // Listen for HTTP requests
-    app.listen(port, '0.0.0.0', () => {
-        logger.message(`Server is running on port ${port}`);
-        console.log(`Server is running on port ${port}`);
-    });
     triggerApi();
 } catch (error) {
     logger.error(error)
