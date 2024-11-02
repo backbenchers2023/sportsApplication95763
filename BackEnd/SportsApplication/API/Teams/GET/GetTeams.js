@@ -5,7 +5,7 @@ const GetTeams = async (req, res) => {
 
     let connection;
     try {
-        var tournamentid = req.body.tournamentid;
+        var tournamentid = req.query.tournamentid;
 
         if (tournamentid == null) {
             return res.status(400).json({ error: "Invalid input: enter the tournamentId." });
@@ -22,12 +22,13 @@ const GetTeams = async (req, res) => {
         const result = teams.docs.map(doc => {
             const data = doc.data();
             return {
-                teams : data.totteams
+                teams : data.totteams,
+                location : data.location
             };
         });
 
         if (!teams.empty){
-            res.status(200).json({ "teams": result });
+            res.status(200).json({ result });
         } else {
             res.status(400).json({ message: "No teams found!" });
         }

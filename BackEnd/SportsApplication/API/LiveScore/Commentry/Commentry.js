@@ -2,12 +2,12 @@ const Socket = require('ws');
 const commentry = require('./Commentry_msg');
 const logger = require('../../../log');
 
-function startWebSocket(server) {
+function livecommentry(server) {
     const wss = new Socket.Server({ server });
 
     wss.on('connection', (ws) => {
         try {
-             logger.message('Client connected');
+              logger.message('Client connected');
 
             ws.on('message', (message) => {
                 try {
@@ -48,4 +48,4 @@ function startWebSocket(server) {
      logger.message('WebSocket server is running on ws://localhost:3000/commentry/websocket');
 }
 
-module.exports = startWebSocket;
+module.exports = livecommentry;

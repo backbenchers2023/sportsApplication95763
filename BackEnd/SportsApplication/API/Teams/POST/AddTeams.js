@@ -3,13 +3,9 @@ const logger = require("../../../log");
 const admin = require('firebase-admin');
 
 const Addteams = async (req, res) => {
-    const { tournament_id, totteams } = req.body; // Ensure to get tournament_id and totteams from the request body
-
+    const { tournament_id, totteams } = req.body; // Ensure tournament_id and totteams are passed
     let connection;
-    let tournamentid = tournament_id;
-    if (!tournamentid || !totteams) {
-        return res.status(400).json({ message: "Missing tournamentid or teams in request body" });
-    }
+    const tournamentid = tournament_id;
 
     logger.message("Tournament ID:", tournamentid);
     logger.message("Teams to add:", totteams);
@@ -18,30 +14,42 @@ const Addteams = async (req, res) => {
         connection = await OpenConnection();
         const { db } = connection;
 
-        // First, check if the tournament exists
+        // Check if the tournament exists
         const tournamentDoc = await db.collection('teams').where('tournament_id', '==', tournamentid).get();
 
         if (tournamentDoc.empty) {
             return res.status(404).json({ message: "No tournament found with the given ID" });
         }
 
-        let exsistingTeams = [];
+        let existingTeams = [];
 
         tournamentDoc.forEach(element => {
-            const data = element.data()
-            if (data && data.totteams) {
-                let exsistingTeams = [...exsistingTeams, ...data.totteams];
+            const data = element.data();
+            if (data && data.totteams) { // Changed to check for 'totteams'
+                existingTeams = [...existingTeams, ...data.totteams];
             }
         });
-        const teamsToAdd = totteams.filter(team => !exsistingTeams.includes(team));
 
+        // Filter out teams that already exist
+        const teamsToAdd = totteams.filter(team => 
+            !existingTeams.some(existingTeam => existingTeam.teamname === team.teamname)
+        );
 
-        // Update each document with the new teams
+        if (teamsToAdd.length === 0) {
+            return res.status(400).json({ message: "All teams are already added" });
+        }
+
+        // Use batch to update documents
         const batch = db.batch();
+
         tournamentDoc.forEach((doc) => {
             const docRef = db.collection('teams').doc(doc.id);
+            // Add new teams while preserving existing ones
             batch.update(docRef, {
-                'teams': admin.firestore.FieldValue.arrayUnion(...teamsToAdd), // Spread the teams array for batch update
+                'totteams': admin.firestore.FieldValue.arrayUnion(...teamsToAdd.map(team => ({
+                    teamname: team.teamname,
+                    location: team.location
+                })))
             });
         });
 

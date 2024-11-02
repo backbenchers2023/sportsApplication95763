@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const startWebSocket = require('./API/LiveScore/Commentry/Commentry');
+const livecommentry = require('./API/LiveScore/Commentry/Commentry');
+const livescore = require('./API/LiveScore/UpdateScore/updateScoreWebsocket');
 const http = require('http');
 const router = require('./Router/Router');
 const logger = require('./log')
-const triggerApi = require("./Render/Automate").default;  // Changed here
 const app = express();
-const port = process.env.PORT || 3000;  // Allow dynamic port assignment
+const port = process.env.PORT || 3000; 
 
 // Use CORS middleware
 app.use(cors());
@@ -23,13 +23,12 @@ const server = http.createServer(app);
 try {
 
     // WebSocket
-    server.listen(port, '0.0.0.0', () => {
-        logger.message(`Server is running on port ${port}`);
-        console.log(`Server is running on port ${port}`);
-        startWebSocket(server); // Start WebSocket on the same server
+    server.listen(3050, '0.0.0.0', () => {
+        console.log("Server is running on port 3050");
+        logger.message("Server is running on port 3050");
+        livecommentry(server); // Start WebSocket on the same server
+        livescore(server);
     });
-
-    triggerApi();
 } catch (error) {
     logger.error(error)
 }

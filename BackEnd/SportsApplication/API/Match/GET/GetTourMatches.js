@@ -24,7 +24,8 @@ const GetTourMatches = async (req, res) => {
                 match_type: data.match_type,
                 start_time: data.start_time,
                 team: data.team,
-                venue: data.venue
+                venue: data.venue,
+                TournamentId: data.TournamentId
             };
         });
 

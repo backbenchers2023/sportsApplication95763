@@ -37,7 +37,7 @@ const GetUsermatch = async (req, res) => {
             };
         });
 
-         logger.message("Matches found:", matches);
+        logger.message("Matches found:", matches);
 
         return res.status(200).json(matches);
 

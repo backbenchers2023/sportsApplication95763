@@ -6,8 +6,6 @@ const updateTournament = async (req, res) => {
 
     try {
         const TournamentId = req.query.TournamentId;
-        const status = req.query.status;
-
         logger.message(`Updating tournaments for TournamentId: ${TournamentId}`);
 
         if (!TournamentId) {
@@ -25,18 +23,18 @@ const updateTournament = async (req, res) => {
         }
 
         const batch = db.batch();
-        tournaments.forEach(doc => batch.update(doc.ref, { status: status }));
+        tournaments.forEach(doc => batch.update(doc.ref, { status: 'live' }));
 
         const result = await batch.commit();
-        logger.message(`Tournament successfully updated to '${status}'`);
-        res.status(200).json({ message: 'Tournament updated successful',status });
+        logger.message('Tournament updated successful');
+        res.status(200).json({ message: 'Tournament updated successful' });
 
     } catch (err) {
         logger.error('Error updating tournament status:', err);
         res.status(500).json({ message: 'Unexpected error occurred' });
     } finally {
         if (connection) {
-         CloseConnection();
+            await CloseConnection();
         }
     }
 };
